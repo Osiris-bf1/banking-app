@@ -1,5 +1,6 @@
 package com.osiris.banking.repository;
 
+import com.osiris.banking.dto.TransactionSumDetails;
 import com.osiris.banking.entity.Transaction;
 import com.osiris.banking.entity.TransactionType;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,6 +23,6 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     @Query("select max(abs(t.amount)) as amount from Transaction t where t.user.id = :userId and t.type = :transactionType")
     BigDecimal findHighestAmountByTransactionType(Long userId, TransactionType transactionType);
 
-    @Query("select t.createdDate, sum(t.amount) as amount from Transaction t where t.user.id = :userId and t.createdDate between : start and : end group by t.createdDate")
-    Map<LocalDate, BigDecimal> findSumTransactionByDate(LocalDateTime start, LocalDateTime end, Long userId);
+    @Query("select t.transactionDate as transactionDate, sum(t.amount) as amount from Transaction t where t.user.id = :userId and t.createdDate between :start and :end group by t.transactionDate")
+    List<TransactionSumDetails> findSumTransactionByDate(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end, Long userId);
 }

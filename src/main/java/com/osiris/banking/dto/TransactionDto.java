@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -29,6 +30,8 @@ public class TransactionDto {
     @Enumerated(EnumType.STRING)
     private TransactionType type;
 
+    private LocalDate transactionDate;
+
     private String destinationIban;
 
     private Long userId;
@@ -38,6 +41,7 @@ public class TransactionDto {
                 .id(transaction.getId())
                 .amount(transaction.getAmount())
                 .type(transaction.getType())
+                .transactionDate(transaction.getTransactionDate())
                 .destinationIban(transaction.getDestinationIban())
                 .userId(transaction.getUser().getUserId())
                 .build();
@@ -48,6 +52,7 @@ public class TransactionDto {
                 .id(transactionDto.getId())
                 .amount(transactionDto.getAmount())
                 .type(transactionDto.getType())
+                .transactionDate(LocalDate.now())
                 .destinationIban(transactionDto.getDestinationIban())
                 .user(
                         User.builder()
