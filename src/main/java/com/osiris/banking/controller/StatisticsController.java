@@ -2,6 +2,7 @@ package com.osiris.banking.controller;
 
 import com.osiris.banking.service.impl.StatisticsServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +19,8 @@ public class StatisticsController {
 
     @GetMapping("/sum-by-date/{userId}")
     public ResponseEntity<Map<LocalDate, BigDecimal>> findSumTransactionByDate(
-            @RequestParam LocalDate startDate,
-            @RequestParam LocalDate endDate,
+            @RequestParam("start-date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
+            @RequestParam("end-date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate,
             @PathVariable Long userId) {
         return ResponseEntity.ok(statisticsService.findSumTransactionByDate(startDate, endDate, userId));
     }

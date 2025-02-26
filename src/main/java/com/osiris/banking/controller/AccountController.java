@@ -1,7 +1,6 @@
 package com.osiris.banking.controller;
 
 import com.osiris.banking.dto.AccountDto;
-import com.osiris.banking.dto.AdressDto;
 import com.osiris.banking.service.impl.AccountServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
